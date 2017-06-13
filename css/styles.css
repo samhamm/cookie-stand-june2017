@@ -11,3 +11,18 @@ li {
 h1, h2 {
   font-family: 'Righteous', cursive;
 }
+
+table {
+	border: 10px solid black;
+}
+
+td {
+	padding: 10px;
+	border-radius: 15px;
+  border: 1px solid black;
+}
+
+th {
+	background-color: navy;
+	color: white;
+}
