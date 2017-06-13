@@ -184,8 +184,10 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
- pikePlace.render();
- seatacAirport.render();
- seattleCenter.render();
- capitolHill.render();
- alki.render();
+var allShops = [pikePlace, seatacAirport, seattleCenter, capitolHill, alki];
+
+(function renderAllShops() {
+  for(var i = 0; i < allShops.length; i++){
+    allShops[i].render();
+  }
+})();
