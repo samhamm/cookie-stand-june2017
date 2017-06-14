@@ -59,8 +59,8 @@ th {
   margin-left: 5%;
   height: 60px;
   position:absolute;
-  -webkit-animation-name:             movefish2;
-  -webkit-animation-duration:         27s;
+  -webkit-animation-name:             movefish3;
+  -webkit-animation-duration:         37s;
   -webkit-animation-iteration-count:  infinite;
   -webkit-transition-timing-function: ease-in-out;
 }
@@ -116,7 +116,15 @@ body{
     left:10%;
     top: 85px;
   }
-  50%{
+  20%{
+    left:30%;
+    top: 200px;
+  }
+  40%{
+    left:50%;
+    top: 85px;
+  }
+  70%{
     left:70%;
     top: 200px;
   }
@@ -131,12 +139,43 @@ body{
     left:75%;
     top: 100px;
   }
+  20%{
+    left:55%;
+    top: 0px;
+  }
   50%{
-    left:10%;
+    left:15%;
+    top: 100px;
+  }
+  70%{
+    left:30%;
     top: 0px;
   }
   100%{
     left:75%;
+    top: 100px;
+  }
+}
+
+@-webkit-keyframes movefish3{
+  0%{
+    left:25%;
+    top: 100px;
+  }
+  20%{
+    left:45%;
+    top: 0px;
+  }
+  50%{
+    left:85%;
+    top: 100px;
+  }
+  70%{
+    left:40%;
+    top: 0px;
+  }
+  100%{
+    left:25%;
     top: 100px;
   }
 }
