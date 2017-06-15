@@ -33,6 +33,11 @@ label {
   color: salmon;
 }
 
+input {
+  display: block;
+
+}
+
 legend {
   color: salmon;
   font-family: 'Righteous', cursive;

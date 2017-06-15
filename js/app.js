@@ -21,6 +21,7 @@ CookieStand.prototype.calcCustomersEachHour = function() {
 
 CookieStand.prototype.calcCookiesEachHour = function() {
   this.calcCustomersEachHour();
+  this.totalDailyCookies = 0;
   for (var i = 0; i < hours.length; i++) {
     var oneHour = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerSale);
     this.cookiesEachHour.push(oneHour);
@@ -68,12 +69,35 @@ function handleForm(e){
   var max = parseInt(e.target.max.value);
   var avg = parseFloat(e.target.avg.value);
 
+  for (var i = 0; i < CookieStand.all.length; i++){
+    if(loc === CookieStand.all[i].locationName) {
+      // reassigning the starter properties
+      CookieStand.all[i].minCustomersPerHour = min;
+      CookieStand.all[i].maxCustomersPerHour = max;
+      CookieStand.all[i].avgCookiesPerSale = avg;
+
+      // zeroing out the results of our calculations
+      CookieStand.all[i].customersEachHour = [];
+      CookieStand.all[i].totalDailyCookies = 0;
+      CookieStand.all[i].cookiesEachHour = [];
+
+      // doing the calculations
+      CookieStand.all[i].calcCookiesEachHour();
+      clearForm();
+      renderTable();
+      return;
+    }
+  }
+
   var newStore = new CookieStand(loc, min, max, avg);
 
-  e.target.locName.value = null;
-  e.target.min.value = null;
-  e.target.max.value = null;
-  e.target.avg.value = null;
+  function clearForm() {
+    e.target.locName.value = null;
+    e.target.min.value = null;
+    e.target.max.value = null;
+    e.target.avg.value = null;
+  }
+  clearForm()
 
   renderTable();
 }
