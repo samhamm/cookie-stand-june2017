@@ -76,10 +76,11 @@ function makeFooterRow() {
   var thEl = document.createElement('th');
   thEl.textContent = 'Hourly Totals for All Locations';
   trEl.appendChild(thEl);
+
   var totalOfTotals = 0;
   var hourlyTotal = 0;
   for (var i = 0; i < hours.length; i++) {
-    var hourlyTotal = 0;
+    hourlyTotal = 0;
     for (var j = 0; j < CookieStand.all.length; j++){
       hourlyTotal += CookieStand.all[j].cookiesEachHour[i];
       totalOfTotals += CookieStand.all[j].cookiesEachHour[i];
@@ -88,6 +89,7 @@ function makeFooterRow() {
     thEl.textContent = hourlyTotal;
     trEl.appendChild(thEl);
   }
+
   thEl = document.createElement('th');
   thEl.textContent = totalOfTotals;
   trEl.appendChild(thEl);
@@ -102,18 +104,27 @@ function makeFooterRow() {
   makeFooterRow();
 })();
 
+
+
+
+
+
+
+
+
+
 // make some waves.
-var ocean = document.getElementById("ocean"),
-    waveWidth = 10,
-    waveCount = Math.floor(window.innerWidth/waveWidth),
-    docFrag = document.createDocumentFragment();
-
-for(var i = 0; i < waveCount; i++){
-  var wave = document.createElement("div");
-  wave.className += " wave";
-  docFrag.appendChild(wave);
-  wave.style.left = i * waveWidth + "px";
-  wave.style.webkitAnimationDelay = (i/100) + "s";
-}
-
-ocean.appendChild(docFrag);
+// var ocean = document.getElementById("ocean"),
+//     waveWidth = 10,
+//     waveCount = Math.floor(window.innerWidth/waveWidth),
+//     docFrag = document.createDocumentFragment();
+//
+// for(var i = 0; i < waveCount; i++){
+//   var wave = document.createElement("div");
+//   wave.className += " wave";
+//   docFrag.appendChild(wave);
+//   wave.style.left = i * waveWidth + "px";
+//   wave.style.webkitAnimationDelay = (i/100) + "s";
+// }
+//
+// ocean.appendChild(docFrag);
