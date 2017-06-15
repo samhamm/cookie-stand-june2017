@@ -17,7 +17,7 @@ td {
   padding: 5px;
 	border-radius: 8px;
   border: 1px solid black;
-  font-size: .8em;
+  font-size: 1.2em;
 }
 
 th {
@@ -25,9 +25,25 @@ th {
 	color: white;
   padding: 2px;
   border-radius: 8px;
-  font-size: .8em;
+  font-size: 1.2em;
 
 }
+
+label {
+  color: salmon;
+}
+
+legend {
+  color: salmon;
+  font-family: 'Righteous', cursive;
+}
+
+
+
+
+
+
+
 
 #thefish {
   z-index: 3;
@@ -47,7 +63,7 @@ th {
   margin-left: 10%;
   height: 40px;
   position:absolute;
-  -webkit-animation-name:             movefish;
+  -webkit-animation-name:             movefish2;
   -webkit-animation-duration:         17s;
   -webkit-animation-iteration-count:  infinite;
   -webkit-transition-timing-function: ease-in-out;
@@ -167,7 +183,7 @@ body{
     top: 0px;
   }
   50%{
-    left:85%;
+    left:80%;
     top: 100px;
   }
   70%{
