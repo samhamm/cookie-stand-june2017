@@ -12,12 +12,17 @@ h1, h2 {
   color: salmon;
 }
 
+table {
+  margin: 0 auto;
+}
+
 td {
   background-color: salmon;
   padding: 5px;
 	border-radius: 8px;
   border: 1px solid black;
-  font-size: 1.2em;
+  font-size: .7em;
+  text-align: center;
 }
 
 th {
@@ -25,17 +30,19 @@ th {
 	color: white;
   padding: 2px;
   border-radius: 8px;
-  font-size: 1.2em;
-
+  font-size: .8em;
+  text-align: center;
 }
 
 label {
   color: salmon;
+  font-size: .8em;
+  font-family: 'Righteous', cursive;
 }
 
 input {
-  display: block;
-
+  border-radius: 5px;
+  background-color: lightgray;
 }
 
 legend {
@@ -43,8 +50,16 @@ legend {
   font-family: 'Righteous', cursive;
 }
 
-
-
+button {
+  background-color: salmon;
+  color: black;
+  display: block;
+  font-size: .8em;
+  border-radius: 10px;
+  margin: 5px;
+  font-family: 'Righteous', cursive;
+  padding: 5px;
+}
 
 
 
@@ -82,6 +97,42 @@ legend {
   position:absolute;
   -webkit-animation-name:             movefish3;
   -webkit-animation-duration:         37s;
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+#thefish4 {
+  z-index: 3;
+  margin-top: 15%;
+  margin-left: 5%;
+  height: 60px;
+  position:absolute;
+  -webkit-animation-name:             movefish3;
+  -webkit-animation-duration:         57s;
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+#thefish5 {
+  z-index: 3;
+  margin-top: 15%;
+  margin-left: 5%;
+  height: 60px;
+  position:absolute;
+  -webkit-animation-name:             movefish2;
+  -webkit-animation-duration:         77s;
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+#thefish6 {
+  z-index: 3;
+  margin-top: 15%;
+  margin-left: 5%;
+  height: 60px;
+  position:absolute;
+  -webkit-animation-name:             movefish;
+  -webkit-animation-duration:         97s;
   -webkit-animation-iteration-count:  infinite;
   -webkit-transition-timing-function: ease-in-out;
 }
@@ -134,7 +185,7 @@ body{
 
 @-webkit-keyframes movefish{
   0%{
-    left:10%;
+    left:5%;
     top: 85px;
   }
   20%{
@@ -150,7 +201,7 @@ body{
     top: 200px;
   }
   100%{
-    left:10%;
+    left:5%;
     top: 85px;
   }
 }
@@ -165,7 +216,7 @@ body{
     top: 0px;
   }
   50%{
-    left:15%;
+    left: 5%;
     top: 100px;
   }
   70%{
@@ -180,7 +231,7 @@ body{
 
 @-webkit-keyframes movefish3{
   0%{
-    left:25%;
+    left:10%;
     top: 100px;
   }
   20%{
@@ -196,7 +247,7 @@ body{
     top: 0px;
   }
   100%{
-    left:25%;
+    left:10%;
     top: 100px;
   }
 }
