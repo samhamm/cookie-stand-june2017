@@ -1,5 +1,18 @@
 'use strict';
 
+// ++++++++++++++++++++++++++++++++++++
+// "GLOBAL" VARS, BUT ALL ATTACHED TO CONSTRUCTOR
+// This technique prevents cluttering the global namespace and also semantically shows that these items are directly related to the functionality of the CookieStand constructor and its instances.
+// After all, it is possible to have a much more complex application that utilizes multiple constructors creating multiple groups of objects that would interact with one another.
+
+CookieStand.all = [];
+CookieStand.hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+CookieStand.theTable = document.getElementById('sales-table');
+CookieStand.theForm = document.getElementById('add-location');
+
+// ++++++++++++++++++++++++++++++++++++
+// CONSTRUCTOR
+
 function CookieStand(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookiesPerSale) {
   this.locationName = locationName;
   this.minCustomersPerHour = minCustomersPerHour;
@@ -10,10 +23,6 @@ function CookieStand(locationName, minCustomersPerHour, maxCustomersPerHour, avg
   this.totalDailyCookies = 0;
   CookieStand.all.push(this);
   this.calcCookiesEachHour();
-}
-
-CookieStand.random = function(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 CookieStand.prototype.calcCustomersEachHour = function() {
@@ -42,21 +51,66 @@ CookieStand.prototype.render = function() {
   CookieStand.theTable.appendChild(trEl);
 }
 
-CookieStand.all = [];
-CookieStand.hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-CookieStand.theTable = document.getElementById('sales-table');
-CookieStand.theForm = document.getElementById('add-location')
+// ++++++++++++++++++++++++++++++++++++
+// HELPER FUNCTIONS
+
+CookieStand.random = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+CookieStand.newElement = function(type, content, parent){
+  var newEl = document.createElement(type);
+  newEl.textContent = content;
+  parent.appendChild(newEl);
+}
+
+// ++++++++++++++++++++++++++++++++++++
+// CREATE INSTANCES
+
 new CookieStand('Pike Place Market', 23, 65, 6.3, 'pike');
 new CookieStand('SeaTac Airport', 3, 24, 1.2, 'seatac');
 new CookieStand('Seattle Center', 11, 38, 3.7, 'seattlecenter');
 new CookieStand('Capitol Hill', 20, 38, 2.3, 'caphill');
 new CookieStand('Alki', 2, 16, 4.6, 'alki');
 
+// ++++++++++++++++++++++++++++++++++++
+// FUNCTION DECLARATIONS
+// Again, these were previously global functions that now have been attached to the constructor.
 
-CookieStand.newElement = function(type, content, parent){
-  var newEl = document.createElement(type);
-  newEl.textContent = content;
-  parent.appendChild(newEl);
+CookieStand.makeHeaderRow = function() {
+  var trEl = document.createElement('tr');
+  CookieStand.newElement('th', 'Locations', trEl);
+  for (var i = 0; i < CookieStand.hours.length; i++) {
+    CookieStand.newElement('th', CookieStand.hours[i], trEl)
+  }
+  CookieStand.newElement('th', 'Location Totals', trEl);
+  CookieStand.theTable.appendChild(trEl);
+}
+
+CookieStand.makeFooterRow = function() {
+  var trEl = document.createElement('tr');
+  CookieStand.newElement('th', 'Hourly Totals for All Locations', trEl);
+  var totalOfTotals = 0;
+  var hourlyTotal = 0;
+  for (var i = 0; i < CookieStand.hours.length; i++) {
+    hourlyTotal = 0;
+    for (var j = 0; j < CookieStand.all.length; j++){
+      hourlyTotal += CookieStand.all[j].cookiesEachHour[i];
+      totalOfTotals += CookieStand.all[j].cookiesEachHour[i];
+    }
+    CookieStand.newElement('th', hourlyTotal, trEl);
+  }
+  CookieStand.newElement('th', totalOfTotals, trEl);
+  CookieStand.theTable.appendChild(trEl);
+}
+
+CookieStand.renderTable = function() {
+  CookieStand.theTable.innerHTML = '';
+  CookieStand.makeHeaderRow();
+  CookieStand.all.forEach(function(store) {
+    return store.render();
+  });
+  CookieStand.makeFooterRow();
 }
 
 CookieStand.handleForm = function(e){
@@ -97,41 +151,9 @@ CookieStand.handleForm = function(e){
   }
 }
 
-CookieStand.makeHeaderRow = function() {
-  var trEl = document.createElement('tr');
-  CookieStand.newElement('th', 'Locations', trEl);
-  for (var i = 0; i < CookieStand.hours.length; i++) {
-    CookieStand.newElement('th', CookieStand.hours[i], trEl)
-  }
-  CookieStand.newElement('th', 'Location Totals', trEl);
-  CookieStand.theTable.appendChild(trEl);
-}
+// ++++++++++++++++++++++++++++++++++++
+// EXECUTABLE CODE
 
-CookieStand.makeFooterRow = function() {
-  var trEl = document.createElement('tr');
-  CookieStand.newElement('th', 'Hourly Totals for All Locations', trEl);
-  var totalOfTotals = 0;
-  var hourlyTotal = 0;
-  for (var i = 0; i < CookieStand.hours.length; i++) {
-    hourlyTotal = 0;
-    for (var j = 0; j < CookieStand.all.length; j++){
-      hourlyTotal += CookieStand.all[j].cookiesEachHour[i];
-      totalOfTotals += CookieStand.all[j].cookiesEachHour[i];
-    }
-    CookieStand.newElement('th', hourlyTotal, trEl);
-  }
-  CookieStand.newElement('th', totalOfTotals, trEl);
-  CookieStand.theTable.appendChild(trEl);
-}
-
-CookieStand.renderTable = function() {
-  CookieStand.theTable.innerHTML = '';
-  CookieStand.makeHeaderRow();
-  CookieStand.all.forEach(function(store) {
-    return store.render();
-  });
-  CookieStand.makeFooterRow();
-}
 CookieStand.renderTable();
 
 CookieStand.theForm.addEventListener('submit', CookieStand.handleForm);
@@ -145,17 +167,17 @@ CookieStand.theForm.addEventListener('submit', CookieStand.handleForm);
 
 
 //make some waves.
-var ocean = document.getElementById("ocean"),
-    waveWidth = 10,
-    waveCount = Math.floor(window.innerWidth/waveWidth),
-    docFrag = document.createDocumentFragment();
-
-for(var i = 0; i < waveCount; i++){
-  var wave = document.createElement("div");
-  wave.className += " wave";
-  docFrag.appendChild(wave);
-  wave.style.left = i * waveWidth + "px";
-  wave.style.webkitAnimationDelay = (i/100) + "s";
-}
-
-ocean.appendChild(docFrag);
+// var ocean = document.getElementById("ocean"),
+//     waveWidth = 10,
+//     waveCount = Math.floor(window.innerWidth/waveWidth),
+//     docFrag = document.createDocumentFragment();
+//
+// for(var i = 0; i < waveCount; i++){
+//   var wave = document.createElement("div");
+//   wave.className += " wave";
+//   docFrag.appendChild(wave);
+//   wave.style.left = i * waveWidth + "px";
+//   wave.style.webkitAnimationDelay = (i/100) + "s";
+// }
+//
+// ocean.appendChild(docFrag);
