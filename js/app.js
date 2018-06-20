@@ -12,9 +12,6 @@ function CookieStand(locationName, minCustomersPerHour, maxCustomersPerHour, avg
   this.calcCookiesEachHour();
 }
 
-CookieStand.random = function(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 CookieStand.prototype.calcCustomersEachHour = function() {
   for (var i = 0; i < CookieStand.hours.length; i++) {
@@ -36,12 +33,15 @@ CookieStand.prototype.render = function() {
   var trEl = document.createElement('tr');
   CookieStand.newElement('td', this.locationName, trEl);
   for (var i = 0; i < CookieStand.hours.length; i++) {
-    CookieStand.newElement('td',this.cookiesEachHour[i], trEl);
+    CookieStand.newElement('td', this.cookiesEachHour[i], trEl);
   }
   CookieStand.newElement('th', this.totalDailyCookies, trEl);
   CookieStand.theTable.appendChild(trEl);
 }
 
+CookieStand.random = function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 CookieStand.all = [];
 CookieStand.hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 CookieStand.theTable = document.getElementById('sales-table');
@@ -53,13 +53,13 @@ new CookieStand('Capitol Hill', 20, 38, 2.3, 'caphill');
 new CookieStand('Alki', 2, 16, 4.6, 'alki');
 
 
-CookieStand.newElement = function(type, content, parent){
+CookieStand.newElement = function(type, content, parent) {
   var newEl = document.createElement(type);
   newEl.textContent = content;
   parent.appendChild(newEl);
 }
 
-CookieStand.handleForm = function(e){
+CookieStand.handleForm = function(e) {
   e.preventDefault();
   // console.log('event object', e);
   var loc = e.target.locName.value;
@@ -67,8 +67,8 @@ CookieStand.handleForm = function(e){
   var max = parseInt(e.target.max.value);
   var avg = parseFloat(e.target.avg.value);
 
-  for (var i = 0; i < CookieStand.all.length; i++){
-    if(loc === CookieStand.all[i].locationName) {
+  for (var i = 0; i < CookieStand.all.length; i++) {
+    if (loc === CookieStand.all[i].locationName) {
       // reassigning the starter properties
       CookieStand.all[i].minCustomersPerHour = min;
       CookieStand.all[i].maxCustomersPerHour = max;
@@ -88,6 +88,7 @@ CookieStand.handleForm = function(e){
   }
 
   new CookieStand(loc, min, max, avg);
+
   function clearForm() {
     e.target.locName.value = null;
     e.target.min.value = null;
@@ -114,7 +115,7 @@ CookieStand.makeFooterRow = function() {
   var hourlyTotal = 0;
   for (var i = 0; i < CookieStand.hours.length; i++) {
     hourlyTotal = 0;
-    for (var j = 0; j < CookieStand.all.length; j++){
+    for (var j = 0; j < CookieStand.all.length; j++) {
       hourlyTotal += CookieStand.all[j].cookiesEachHour[i];
       totalOfTotals += CookieStand.all[j].cookiesEachHour[i];
     }
@@ -146,16 +147,16 @@ CookieStand.theForm.addEventListener('submit', CookieStand.handleForm);
 
 //make some waves.
 var ocean = document.getElementById("ocean"),
-    waveWidth = 10,
-    waveCount = Math.floor(window.innerWidth/waveWidth),
-    docFrag = document.createDocumentFragment();
+  waveWidth = 10,
+  waveCount = Math.floor(window.innerWidth / waveWidth),
+  docFrag = document.createDocumentFragment();
 
-for(var i = 0; i < waveCount; i++){
+for (var i = 0; i < waveCount; i++) {
   var wave = document.createElement("div");
   wave.className += " wave";
   docFrag.appendChild(wave);
   wave.style.left = i * waveWidth + "px";
-  wave.style.webkitAnimationDelay = (i/100) + "s";
+  wave.style.webkitAnimationDelay = (i / 100) + "s";
 }
 
 ocean.appendChild(docFrag);
